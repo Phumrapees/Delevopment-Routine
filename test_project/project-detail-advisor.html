@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดโครงงาน - อาจารย์ที่ปรึกษา</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .project-title {
+            flex: 1;
+        }
+
+        .project-title h1 {
+            color: #2d3748;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4a5568;
+        }
+
+        .meta-item i {
+            color: #48bb78;
+            width: 20px;
+        }
+
+        .project-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .overall-progress {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#48bb78 0deg, #48bb78 216deg, #e2e8f0 216deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            position: relative;
+        }
+
+        .progress-circle::before {
+            content: '60%';
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2d3748;
+        }
+
+        .progress-label {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.4rem;
+        }
+
+        .card h2 i {
+            color: #48bb78;
+        }
+
+        /* Team Members */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .member-card {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            border-color: #48bb78;
+            transform: translateY(-2px);
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 auto 1rem;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-id {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Weekly Progress Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #48bb78;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .timeline-item.delayed {
+            border-left-color: #f56565;
+            background: #fed7d7;
+        }
+
+        .timeline-item.completed {
+            border-left-color: #4299e1;
+            background: #ebf8ff;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.25rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #48bb78;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-item.delayed .timeline-dot {
+            background: #f56565;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: #4299e1;
+        }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .week-title {
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .week-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-submitted {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-pending {
+            background: #fed7cc;
+            color: #9c4221;
+        }
+
+        .week-description {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .week-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #38a169;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #48bb78;
+            border: 1px solid #48bb78;
+        }
+
+        .btn-outline:hover {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #dd6b20;
+        }
+
+        /* Progress Overview */
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #48bb78;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .action-btn {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem;
+            text-decoration: none;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            border-color: #48bb78;
+            background: #f0fff4;
+            transform: translateX(5px);
+        }
+
+        .action-btn i {
+            color: #48bb78;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Communication Log */
+        .comm-log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .comm-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comm-item:last-child {
+            border-bottom: none;
+        }
+
+        .comm-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .comm-content {
+            flex: 1;
+        }
+
+        .comm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comm-author {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 0.9rem;
+        }
+
+        .comm-date {
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        .comm-text {
+            color: #4a5568;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
+        /* Add Comment Form */
+        .add-comment {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comment-form textarea {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #48bb78;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .project-status {
+                align-items: flex-start;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="teacher_main_dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="advisor-projects.html">อาจารย์ที่ปรึกษา</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>รายละเอียดโครงงาน</span>
+            </div>
+            
+            <div class="header-content">
+                <div class="project-title">
+                    <h1>ระบบควบคุมบ้านอัจฉริยะด้วย IoT</h1>
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-start"></i>
+                            <span>เริ่มโครงงาน: มิ.ย. 2566</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>กำหนดส่ง: ธ.ค. 2566</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-microchip"></i>
+                            <span>เทคโนโลยี: IoT, Web Application, Sensors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-status">
+                    <div class="status-badge status-active">
+                        <i class="fas fa-play-circle"></i>
+                        กำลังดำเนินการ
+                    </div>
+                    <div class="overall-progress">
+                        <div class="progress-circle"></div>
+                        <div class="progress-label">ความคืบหน้าโดยรวม</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <!-- Team Members -->
+                <div class="card">
+                    <h2><i class="fas fa-users"></i> สมาชิกทีม</h2>
+                    <div class="team-grid">
+                        <div class="member-card">
+                            <div class="member-avatar">ส</div>
+                            <div class="member-name">สมศรี รักเรียน</div>
+                            <div class="member-id">6501001</div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-avatar">ม</div>
+                            <div class="member-name">มานะ ขยันทำ</div>
+                            <div class="member-id">6501002</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Progress Timeline -->
+                <div class="card">
+                    <h2><i class="fas fa-calendar-week"></i> ความคืบหน้ารายสัปดาห์</h2>
+                    <div class="timeline">
+                        <!-- Week 6 - Current/Pending -->
+                        <div class="timeline-item delayed">
+                            <div class="timeline-dot"></div>
+                            <div class="week-header">
+                                <div class="week-title">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    สัปดาห์ที่ 6: การทดสอบระบบ
+                                </div>
+                                <div class="week-status status-pending">ล่าช้า 2 วัน</div>
+                            </div>
+                            <div class="week-description">
+                                ทดสอบการเชื่อมต่อ IoT devices และ API integration
+                                <br><strong>กำหนดส่ง:</strong> 15 ตุลาคม 2566
+                            </div>
+                            <div class="week-actions">
+                                <button class="btn btn-warning btn-sm">
+                                    <i class="fas fa-bell"></i>
+                                    แจ้งเตือนนักศึกษา
+                                </button>
+                                <a href="#" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-comments"></i>
+                                    ส่งข้อความ
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Week 5 - Completed -->
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="week-header">
+                                <div class="week-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    สัปดาห์ที่ 5: การพัฒนาส่วนติดต่อผู้ใช้
+                                </div>
+                                <div class="week-status status-submitted">ส่งแล้ว</div>
+                            </div>
+                            <div class="week-description">
+                                พัฒนาและปรับปรุง User Interface สำหรับระบบแดชบอร์ดหลัก
+                                <br><strong>ส่งเมื่อ:</strong> 8 ตุลาคม 2566
+                            </div>
+                            <div class="week-actions">
+                                <a href="weekly-detail.html?week=5" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                    ดูรายงาน
+                                </a>
+                                <a href="#" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                    ให้คะแนน
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Week 4 - Completed -->
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="week-header">
+                                <div class="week-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    สัปดาห์ที่ 4: พัฒนาส่วนควบคุม
+                                </div>
+                                <div class="week-status status-submitted">ส่งแล้ว</div>
+                            </div>
+                            <div class="week-description">
+                                เริ่มเขียนโค้ดสำหรับส่วนควบคุมหลักและทดสอบเบื้องต้น
+                            </div>
+                            <div class="week-actions">
+                                <a href="weekly-detail.html?week=4" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                    ดูรายงาน
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Week 3 - Completed -->
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="week-header">
+                                <div class="week-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    สัปดาห์ที่ 3: ออกแบบระบบ
+                                </div>
+                                <div class="week-status status-submitted">ส่งแล้ว</div>
+                            </div>
+                            <div class="week-description">
+                                ออกแบบสถาปัตยกรรมระบบ (System Architecture) และฐานข้อมูล
+                            </div>
+                            <div class="week-actions">
+                                <a href="weekly-detail.html?week=3" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                    ดูรายงาน
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <!-- Progress Overview -->
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> ภาพรวมความคืบหน้า</h2>
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">6/10</div>
+                            <div class="stat-label">สัปดาห์ที่ส่งแล้ว</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">สัปดาห์ที่เหลือ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">รายงานล่าช้า</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">60%</div>
+                            <div class="stat-label">คะแนนเฉลี่ย</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Update Form -->
+                    <div class="add-comment">
+                        <h3 style="margin-bottom: 1rem; color: #2d3748;">
+                            <i class="fas fa-sliders-h"></i> อัพเดทความคืบหน้า
+                        </h3>
+                        <form class="comment-form">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <label style="font-weight: 600; color: #4a5568;">ความคืบหน้า:</label>
+                                <input type="range" id="progressSlider" min="10" max="100" value="60" 
+                                       style="flex: 1;" onchange="updateProgressValue(this.value)">
+                                <span id="progressValue" style="font-weight: 700; color: #48bb78; min-width: 50px;">60%</span>
+                            </div>
+                            <textarea placeholder="เพิ่มความเห็นเกี่ยวกับความคืบหน้า..."></textarea>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                บันทึกความคืบหน้า
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <h2><i class="fas fa-bolt"></i> การดำเนินการด่วน</h2>
+                    <div class="quick-actions">
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>นัดหมายปรึกษา</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-file-download"></i>
+                            <span>ดาวน์โหลดรายงานทั้งหมด</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>ดูสถิติการทำงาน</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>เตรียมสอบหัวข้อ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Communication Log -->
+                <div class="card">
+                    <h2><i class="fas fa-comments"></i> ประวัติการสื่อสาร</h2>
+                    <div class="comm-log">
+                        <div class="comm-item">
+                            <div class="comm-avatar">อ</div>
+                            <div class="comm-content">
+                                <div class="comm-header">
+                                    <div class="comm-author">อ. สมชาย ใจดี</div>
+                                    <div class="comm-date">2 วันที่แล้ว</div>
+                                </div>
+                                <div class="comm-text">
+                                    รายงานสัปดาห์ที่ 5 ดีมาก UI ออกแบบได้สวย แต่ควรเพิ่มการจัดการ error handling ให้ครบถ้วน
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="comm-item">
+                            <div class="comm-avatar" style="background: linear-gradient(135deg, #ed8936, #dd6b20);">ส</div>
+                            <div class="comm-content">
+                                <div class="comm-header">
+                                    <div class="comm-author">สมศรี รักเรียน</div>
+                                    <div class="comm-date">3 วันที่แล้ว</div>
+                                </div>
+                                <div class="comm-text">
+                                    ขอคำแนะนำเรื่องการเชื่อมต่อ sensors กับ database ครับ มีปัญหาการส่งข้อมูลไม่เสถียร
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="comm-item">
+                            <div class="comm-avatar">อ</div>
+                            <div class="comm-content">
+                                <div class="comm-header">
+                                    <div class="comm-author">อ. สมชาย ใจดี</div>
+                                    <div class="comm-date">4 วันที่แล้ว</div>
+                                </div>
+                                <div class="comm-text">
+                                    อย่าลืมส่งรายงานสัปดาห์ที่ 6 ตามกำหนดนะครับ และเตรียมเฉพาะการ demo ระบบ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add new comment -->
+                    <div class="add-comment">
+                        <form class="comment-form">
+                            <textarea placeholder="พิมพ์ข้อความถึงนักศึกษา..."></textarea>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                ส่งข้อความ
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress slider functionality
+        function updateProgressValue(value) {
+            document.getElementById('progressValue').textContent = value + '%';
+            updateProgressCircle(value);
+        }
+
+        function updateProgressCircle(percentage) {
+            const circle = document.querySelector('.progress-circle');
+            const degrees = (percentage / 100) * 360;
+            circle.style.background = `conic-gradient(#48bb78 0deg, #48bb78 ${degrees}deg, #e2e8f0 ${degrees}deg)`;
+            
+            const beforeElement = circle.querySelector('::before') || circle;
+            // Update the text content of the pseudo-element via CSS custom property
+            circle.style.setProperty('--progress-text', `"${percentage}%"`);
+        }
+
+        // Initialize progress circle with current value
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgressCircle(60);
+            
+            // Add CSS rule for progress circle text
+            const style = document.createElement('style');
+            style.textContent = `
+                .progress-circle::before {
+                    content: var(--progress-text, "60%");
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Form submissions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress update form
+            const progressForm = document.querySelector('.comment-form');
+            if (progressForm) {
+                progressForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const progressValue = document.getElementById('progressSlider').value;
+                    const comment = this.querySelector('textarea').value;
+                    
+                    if (comment.trim() === '') {
+                        alert('กรุณาใส่ความเห็นเกี่ยวกับความคืบหน้า');
+                        return;
+                    }
+                    
+                    // Simulate saving progress
+                    alert(`บันทึกความคืบหน้า ${progressValue}% เรียบร้อยแล้ว!`);
+                    
+                    // Clear form
+                    this.querySelector('textarea').value = '';
+                    
+                    // Update progress display
+                    updateProgressCircle(progressValue);
+                });
+            }
+            
+            // Message form
+            const messageForm = document.querySelector('.add-comment .comment-form');
+            if (messageForm) {
+                messageForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const message = this.querySelector('textarea').value;
+                    
+                    if (message.trim() === '') {
+                        alert('กรุณาพิมพ์ข้อความ');
+                        return;
+                    }
+                    
+                    // Add message to conversation log
+                    addMessageToLog('อ. สมชาย ใจดี', message, 'อ');
+                    
+                    // Clear form
+                    this.querySelector('textarea').value = '';
+                });
+            }
+        });
+
+        // Add message to communication log
+        function addMessageToLog(author, message, avatar) {
+            const commLog = document.querySelector('.comm-log');
+            const newMessage = document.createElement('div');
+            newMessage.className = 'comm-item';
+            newMessage.innerHTML = `
+                <div class="comm-avatar">${avatar}</div>
+                <div class="comm-content">
+                    <div class="comm-header">
+                        <div class="comm-author">${author}</div>
+                        <div class="comm-date">เมื่อสักครู่</div>
+                    </div>
+                    <div class="comm-text">${message}</div>
+                </div>
+            `;
+            
+            // Insert at the beginning of the log
+            commLog.insertBefore(newMessage, commLog.firstChild);
+        }
+
+        // Quick action handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const action = this.querySelector('span').textContent;
+                    alert(`กำลังดำเนินการ: ${action}\n(ในระบบจริงจะเปิดหน้าที่เกี่ยวข้อง)`);
+                });
+            });
+        });
+
+        // Timeline item interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Add visual feedback when clicking timeline items
+                    this.style.transform = 'translateX(10px)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(0)';
+                    }, 200);
+                });
+            });
+        });
+
+        // Warning notification for overdue assignments
+        function sendReminderNotification() {
+            const delayedItems = document.querySelectorAll('.timeline-item.delayed');
+            if (delayedItems.length > 0) {
+                alert('แจ้งเตือนนักศึกษาเรียบร้อยแล้ว!\nส่งข้อความเตือนเกี่ยวกับงานที่ล่าช้า');
+            }
+        }
+
+        // Handle reminder button clicks
+        document.addEventListener('DOMContentLoaded', function() {
+            const reminderBtns = document.querySelectorAll('.btn-warning');
+            reminderBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sendReminderNotification();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

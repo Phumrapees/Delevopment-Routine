@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>งานกรรมการ - จัดการโครงงาน</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-content">
+          <div>
+            <div class="breadcrumb">
+              <a href="teacher_main_dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+              <i class="fas fa-chevron-right"></i>
+              <span>งานกรรมการ</span>
+            </div>
+            <div class="header-title">
+              <h1><i class="fas fa-gavel"></i> จัดการโครงงานในความดูแล (กรรมการ)</h1>
+              <div class="role-badge">งานกรรมการ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-cards">
+        <div class="summary-card">
+          <h3>โครงงานทั้งหมด</h3>
+          <div class="summary-number">12</div>
+          <div class="summary-description">กลุ่มที่รับผิดชอบ</div>
+        </div>
+        <div class="summary-card">
+          <h3>รอสอบหัวข้อ</h3>
+          <div class="summary-number">4</div>
+          <div class="summary-description">กลุ่มที่นัดสอบ Proposal</div>
+        </div>
+        <div class="summary-card">
+          <h3>รอสอบจบ</h3>
+          <div class="summary-number">3</div>
+          <div class="summary-description">กลุ่มที่นัดสอบ Final</div>
+        </div>
+        <div class="summary-card">
+          <h3>รอเอกสาร</h3>
+          <div class="summary-number">2</div>
+          <div class="summary-description">กลุ่มที่ต้องส่งเอกสาร</div>
+        </div>
+        <div class="summary-card">
+          <h3>รอตรวจเอกสาร</h3>
+          <div class="summary-number">3</div>
+          <div class="summary-description">กลุ่มที่ส่งเอกสารเข้าตรวจ</div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="filter-row">
+          <div class="search-box">
+            <input type="text" placeholder="ค้นหาโครงงาน นักศึกษา หรือเทคโนโลยี..." id="searchInput">
+          </div>
+          <div class="filter-select">
+            <select id="statusFilter">
+              <option value="all">สถานะทั้งหมด</option>
+              <option value="pending_exam">รอสอบ</option>
+              <option value="passed">ผ่าน</option>
+              <option value="needs_revision">รอการแก้ไข</option>
+              <option value="pending_review">รอตรวจ</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-phase-selector" id="examPhaseSelector">
+        <button class="exam-phase-btn active" data-phase="all">
+            <i class="fas fa-list-ul"></i> ทั้งหมด
+        </button>
+        <button class="exam-phase-btn" data-phase="proposal">
+            <i class="fas fa-file-alt"></i> สอบเสนอหัวข้อ
+        </button>
+        <button class="exam-phase-btn" data-phase="final">
+            <i class="fas fa-graduation-cap"></i> สอบจบโครงงาน
+        </button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <div class="project-card" 
+             data-status="pending_review" 
+             data-exam-phase="proposal"
+             data-project-title="ระบบควบคุมบ้านอัจฉริยะด้วย IoT"
+             data-advisor="รศ.ดร.อนิราช มิ่งขวัญ"
+             data-tech="IoT, Web App">
+          <div class="status-badge status-pending-review">
+            <i class="fas fa-search"></i>
+            รอตรวจ
+          </div>
+          
+          <div class="project-header">
+            <h3 class="project-title">ระบบควบคุมบ้านอัจฉริยะด้วย IoT</h3>
+            <div class="project-meta">
+              <div class="meta-item">
+                <i class="fas fa-user-tie"></i>
+                <span>ที่ปรึกษา: รศ.ดร.อนิราช มิ่งขวัญ</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-microchip"></i>
+                <span>IoT, Web App</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-members">
+            <h4>สมาชิกทีม (2 คน)</h4>
+            <div class="members-list">
+              <span class="member-tag">สมศรี รักเรียน</span>
+              <span class="member-tag">มานะ ขยันทำ</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openReviewModal(this)">
+              <i class="fas fa-eye"></i>
+              ดูรายละเอียด
+            </button>
+          </div>
+        </div>
+
+        <div class="project-card" 
+             data-status="needs_revision" 
+             data-exam-phase="proposal"
+             data-project-title="แอปพลิเคชันจัดการสต๊อกสินค้าอัตโนมัติ"
+             data-advisor="ผศ.อรบุษป์ วุฒิกมลชัย"
+             data-tech="Mobile, Database">
+          <div class="status-badge status-needs-revision">
+            <i class="fas fa-pencil-alt"></i>
+            รอการแก้ไข
+          </div>
+
+          <div class="project-header">
+            <h3 class="project-title">แอปพลิเคชันจัดการสต๊อกสินค้าอัตโนมัติ</h3>
+            <div class="project-meta">
+              <div class="meta-item">
+                <i class="fas fa-user-tie"></i>
+                <span>ที่ปรึกษา: ผศ.อรบุษป์ วุฒิกมลชัย</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Mobile, Database</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-members">
+            <h4>สมาชิกทีม (3 คน)</h4>
+            <div class="members-list">
+              <span class="member-tag">วิรัช ทำดี</span>
+              <span class="member-tag">ปรีชา เก่ง</span>
+              <span class="member-tag">สุดา ขยัน</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openReviewModal(this)">
+              <i class="fas fa-eye"></i>
+              ดูรายละเอียด
+            </button>
+          </div>
+        </div>
+
+        <div class="project-card" 
+             data-status="pending_exam" 
+             data-exam-phase="final"
+             data-project-title="ระบบแนะนำหนังสือด้วย Machine Learning"
+             data-advisor="ผศ.ดร.บีสุดา ดาวเรือง"
+             data-tech="AI, Python">
+          <div class="status-badge status-pending-exam">
+            <i class="fas fa-clock"></i>
+            รอสอบ
+          </div>
+          
+          <div class="project-header">
+            <h3 class="project-title">ระบบแนะนำหนังสือด้วย Machine Learning</h3>
+            <div class="project-meta">
+              <div class="meta-item">
+                <i class="fas fa-user-tie"></i>
+                <span>ที่ปรึกษา: ผศ.ดร.บีสุดา ดาวเรือง</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-robot"></i>
+                <span>AI, Python</span>
+              </div>
+              <div class="meta-item meta-exam-info meta-exam-set">
+                <i class="fas fa-clock"></i>
+                <span>สอบ: 10 ต.ค. 2567, 13:00 น.</span>
+              </div>
+              <div class="meta-item meta-exam-info meta-exam-set">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>สถานที่: ห้องสอบ Online (Zoom)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-members">
+            <h4>สมาชิกทีม (2 คน)</h4>
+            <div class="members-list">
+              <span class="member-tag">กิตติ เก่งมาก</span>
+              <span class="member-tag">นิดา เท่ง</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openReviewModal(this)">
+              <i class="fas fa-eye"></i>
+              ดูรายละเอียด
+            </button>
+          </div>
+        </div>
+
+        <div class="project-card" 
+             data-status="passed" 
+             data-exam-phase="final"
+             data-project-title="เว็บแอปพลิเคชันจัดการคลินิกสัตว์"
+             data-advisor="ผศ.ดร.ขนิษฐา นามี"
+             data-tech="Web App, Database">
+          <div class="status-badge status-passed">
+            <i class="fas fa-check-circle"></i>
+            ผ่าน
+          </div>
+          
+          <div class="project-header">
+            <h3 class="project-title">เว็บแอปพลิเคชันจัดการคลินิกสัตว์</h3>
+            <div class="project-meta">
+              <div class="meta-item">
+                <i class="fas fa-user-tie"></i>
+                <span>ที่ปรึกษา: ผศ.ดร.ขนิษฐา นามี</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-globe"></i>
+                <span>Web App, Database</span>
+              </div>
+              <div class="meta-item meta-exam-info meta-exam-set">
+                <i class="fas fa-clock"></i>
+                <span>สอบ: 25 ต.ค. 2567, 10:00 น.</span>
+              </div>
+              <div class="meta-item meta-exam-info meta-exam-set">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>สถานที่: ห้องประชุม 401</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-members">
+            <h4>สมาชิกทีม (2 คน)</h4>
+            <div class="members-list">
+              <span class="member-tag">สมใส ใสใจ</span>
+              <span class="member-tag">วีระ รู้ดี</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openReviewModal(this)">
+              <i class="fas fa-eye"></i>
+              ดูรายละเอียด
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="load-more">
+        <button onclick="loadMoreProjects()">
+          <i class="fas fa-plus-circle"></i>
+          โหลดโครงงานเพิ่มเติม
+        </button>
+      </div>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeReviewModal()">&times;</span>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            
+            <div id="projectDetails" class="project-modal-details">
+                </div>
+            
+            <hr class="modal-divider">
+
+            <div id="proposalReview" class="review-form">
+                <h3 class="form-phase-title"><i class="fas fa-file-alt"></i> ผลการพิจารณา: สอบเสนอหัวข้อ</h3>
+                
+                <div class="document-section">
+                    <h4>เอกสารเสนอหัวข้อ</h4>
+                    <a href="#" id="proposalDocLink" target="_blank" class="doc-link">
+                        <i class="fas fa-file-pdf"></i> ดาวน์โหลดเอกสารเสนอหัวข้อ (ชื่อโครงงาน)
+                    </a>
+                </div>
+
+                <div class="review-area">
+                    <h4><i class="fas fa-comment-dots"></i> ความเห็นและข้อเสนอแนะของกรรมการ</h4>
+                    <textarea placeholder="ระบุความเห็น ข้อเสนอแนะ หรือข้อแก้ไขที่ต้องการ..." id="proposalComment" rows="5"></textarea>
+                </div>
+
+                <div class="decision-area">
+                    <h4><i class="fas fa-check-circle"></i> ผลการพิจารณา</h4>
+                    <div class="radio-group">
+                        <label><input type="radio" name="proposalDecision" value="passed"> ผ่าน</label>
+                        <label><input type="radio" name="proposalDecision" value="revision"> ผ่านแก้ไข</label>
+                        <label><input type="radio" name="proposalDecision" value="re_exam"> สอบใหม่</label>
+                        <label><input type="radio" name="proposalDecision" value="failed"> ไม่ผ่าน</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="finalReview" class="review-form">
+                <h3 class="form-phase-title"><i class="fas fa-graduation-cap"></i> ผลการพิจารณา: สอบจบโครงงาน</h3>
+                
+                <div class="document-section">
+                    <h4><i class="fas fa-file-word"></i> เอกสารโครงงานฉบับสมบูรณ์</h4>
+                    <a href="#" id="finalDocLink" target="_blank" class="doc-link">
+                        ดาวน์โหลดรายงานโครงงาน (บทที่ 1-5)
+                    </a>
+                    
+                    <h4><i class="fas fa-file-powerpoint"></i> สไลด์นำเสนอ</h4>
+                    <a href="#" id="slideLink" target="_blank" class="doc-link">
+                        ดาวน์โหลดสไลด์นำเสนอ
+                    </a>
+                </div>
+
+                <div class="review-area">
+                    <h4><i class="fas fa-comment-dots"></i> ความเห็นและข้อเสนอแนะของกรรมการ</h4>
+                    <textarea placeholder="ระบุความเห็น ข้อเสนอแนะ หรือข้อแก้ไขที่ต้องการ..." id="finalComment" rows="5"></textarea>
+                </div>
+
+                <div class="decision-area">
+                    <h4><i class="fas fa-check-circle"></i> ผลการพิจารณา</h4>
+                    <div class="radio-group">
+                        <label><input type="radio" name="finalDecision" value="passed"> ผ่าน</label>
+                        <label><input type="radio" name="finalDecision" value="revision"> ผ่านแก้ไข</label>
+                        <label><input type="radio" name="finalDecision" value="re_exam"> สอบใหม่</label>
+                        <label><input type="radio" name="finalDecision" value="failed"> ไม่ผ่าน</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="submitReviewBtn">
+                    <i class="fas fa-paper-plane"></i> บันทึกและส่งผลการพิจารณา
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>
