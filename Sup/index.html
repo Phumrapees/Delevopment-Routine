@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant RMS - Login</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.login-container { width:300px; margin:100px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+.login-container input, .login-container select { width:100%; margin:10px 0; }
+.login-container button { width:100%; margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="login-container">
+  <h2>Restaurant RMS Login</h2>
+  <form id="loginForm">
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Username" required>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Password" required>
+    <label>Role</label>
+    <select id="role">
+      <option value="admin">Admin</option>
+      <option value="waiter">Waiter</option>
+      <option value="chef">Chef</option>
+      <option value="cashier">Cashier</option>
+    </select>
+    <button type="submit" class="add-btn">Login</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const role = document.getElementById('role').value;
+  if(role==='admin') window.location.href='admin.html';
+  else if(role==='waiter') window.location.href='waiter.html';
+  else if(role==='chef') window.location.href='chef.html';
+  else if(role==='cashier') window.location.href='cashier.html';
+});
+</script>
+</body>
+</html>

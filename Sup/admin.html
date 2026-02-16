@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <h2>Admin RMS</h2>
+  <ul>
+    <li><a href="#" onclick="showSection('customers')">Customers</a></li>
+    <li><a href="#" onclick="showSection('staff')">Staff</a></li>
+    <li><a href="#" onclick="showSection('menu')">Menu</a></li>
+  </ul>
+</div>
+
+<div class="topbar">
+  <div>Admin Dashboard</div>
+  <div>User: Admin | <a href="index.html" style="color:#fff;">Logout</a></div>
+</div>
+
+<div class="content">
+  <div id="customers" class="section">
+    <h2>Customers</h2>
+    <button class="add-btn" onclick="addCustomer()">Add Customer</button>
+    <table id="customerTable">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="staff" class="section">
+    <h2>Staff</h2>
+    <button class="add-btn" onclick="addStaff()">Add Staff</button>
+    <table id="staffTable">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Position</th><th>Branch</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="menu" class="section">
+    <h2>Menu</h2>
+    <button class="add-btn" onclick="addMenu()">Add Menu</button>
+    <table id="menuTable">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
