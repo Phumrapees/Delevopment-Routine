@@ -1,0 +1,10 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color: rgb(241, 178, 187);
+    padding: 15px 0;
+}
+.navbar:hover{
+    color: rgb(243, 28, 28);
+}

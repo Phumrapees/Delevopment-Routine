@@ -1,33 +1,44 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import MyRoute from './components/MyRoute'
 import './App.css'
+import Modal from 'react-modal';
+import "./modal.css"
+import employees from './assets/employees';
+import EmployeeList from './components/EmployeeList';
+
+Modal.setAppElement('#root')
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setdata] = useState(employees);
+  const [Open, setOpen] = useState(false)
+  const openModal = ()=> setOpen(true);
+  const closeModal = ()=> setOpen(false)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h1>MyRoute</h1>
+    <button onClick={openModal}>Open Model</button>
+
+    <Modal
+      isOpen = {Open}
+      onRequestClose={closeModal}
+      contentLabel='Example Modal'
+      className="Modal"
+      overlayClassName="Overlay"
+      >
+        <h2>Hello Modal!!!</h2>
+        <label htmlFor="id">รหัวพนักงาน</label>
+        <input type="text" id="id" /><br />
+        <label htmlFor="name">ชื่อ</label>
+        <input type="text" id="name" /><br />
+        <label htmlFor="age">อายุ</label>
+        <input type="text" id="age" /><br />
+        <label htmlFor="position">ตำแหน่งงาน</label>
+        <input type="text" id="position" /><br />
+        <button onClick={closeModal}>Close</button>
+      </Modal>
+      <MyRoute/>
+      <EmployeeList employees={employees} openModal={openModal}/>
     </>
   )
 }
